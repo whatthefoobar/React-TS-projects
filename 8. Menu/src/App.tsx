@@ -143,9 +143,7 @@ function App() {
   const [sectionCenter, setSectionCenter] = useState(initialSection);
 
   const loadCards = () => {
-    let displayMenu = menuItems.map(function (item) {
-      // console.log(item);
-
+    let displayMenu = menuItems.map((item) => {
       return `<article class="menu-item">
           <img src=${item.img} alt=${item.title} class="photo" />
           <div class="item-info">
@@ -166,6 +164,22 @@ function App() {
 
     setSectionCenter(display);
   };
+  //non repeating categories
+  const categories = menuItems.reduce(
+    (values, item) => {
+      if (!values.includes(item.category)) {
+        values.push(item.category);
+      }
+
+      return values;
+    },
+    ["all"]
+  );
+  const filterCards = () => {
+    // something here
+
+    console.log("filter");
+  };
 
   return (
     <div className="App">
@@ -177,6 +191,18 @@ function App() {
         </div>
         {/* filter buttons  */}
         <div className="btn-container">
+          {/* map through categ and list a button for it */}
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              type="button"
+              className="filter-btn"
+              data-id={category}
+              onClick={filterCards}
+            >
+              {category}
+            </button>
+          ))}
           {/*  <button type="button" className="filter-btn" data-id="all">all</button>
         <button type="button" className="filter-btn" data-id="breakfast">
           breakfast
