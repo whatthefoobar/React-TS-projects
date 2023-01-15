@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "./App.css";
-import parse from "html-react-parser";
-import menuItem from "./assets/img/menu-item.jpeg";
+// import parse from "html-react-parser";
+// import menuItem from "./assets/img/menu-item.jpeg";
 import menuItem1 from "./assets/img/item-1.jpeg";
 import menuItem2 from "./assets/img/item-2.jpeg";
 import menuItem3 from "./assets/img/item-3.jpeg";
@@ -96,74 +95,7 @@ function App() {
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
   ];
-  const initialSection = parse(`<article className="menu-item">
-            <img src=${menuItem} alt="menu item" className="photo" />
-            <div className="item-info">
-              <header>
-                <h4>buttermilk pancakes</h4>
-                <h4 className="price">$15</h4>
-              </header>
-              <p className="item-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repudiandae, sint quam. Et reprehenderit fugiat nesciunt
-                inventore laboriosam excepturi! Quo, officia.
-              </p>
-            </div>
-          </article>
-          
-          <article className="menu-item">
-            <img src=${menuItem} alt="menu item" className="photo" />
-            <div className="item-info">
-              <header>
-                <h4>buttermilk pancakes</h4>
-                <h4 className="price">$15</h4>
-              </header>
-              <p className="item-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repudiandae, sint quam. Et reprehenderit fugiat nesciunt
-                inventore laboriosam excepturi! Quo, officia.
-              </p>
-            </div>
-          </article>
-         
-          <article className="menu-item">
-            <img src=${menuItem} alt="menu item" className="photo" />
-            <div className="item-info">
-              <header>
-                <h4>buttermilk pancakes</h4>
-                <h4 className="price">$15</h4>
-              </header>
-              <p className="item-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repudiandae, sint quam. Et reprehenderit fugiat nesciunt
-                inventore laboriosam excepturi! Quo, officia.
-              </p>
-            </div>
-          </article>`);
-  const [sectionCenter, setSectionCenter] = useState(initialSection);
 
-  const loadCards = () => {
-    let displayMenu = menuItems.map((item) => {
-      return `<article class="menu-item">
-          <img src=${item.img} alt=${item.title} class="photo" />
-          <div class="item-info">
-            <header>
-              <h4>${item.title}</h4>
-              <h4 class="price">$${item.price}</h4>
-            </header>
-            <p class="item-text">
-              ${item.desc}
-            </p>
-          </div>
-        </article>`;
-    });
-    // console.log(displayMenu);
-
-    let display = parse(displayMenu.join(""));
-    // console.log(display);
-
-    setSectionCenter(display);
-  };
   //non repeating categories
   const categories = menuItems.reduce(
     (values, item) => {
@@ -213,8 +145,20 @@ function App() {
         </button>  */}
         </div>
         {/* menu items  */}
-        <div className="section-center" onLoad={loadCards}>
-          {sectionCenter}
+        <div className="section-center">
+          {menuItems.map((item, index) => (
+            <article className="menu-item">
+              <img src={item.img} alt={item.title} className="photo" />
+              <div className="item-info">
+                <header>
+                  <h4>{item.title}</h4>
+                  <h4 className="price">${item.price}</h4>
+                </header>
+                <p className="item-text">{item.desc}</p>
+              </div>
+            </article>
+          ))}
+          {/* {sectionCenter} */}
         </div>
       </section>
     </div>
