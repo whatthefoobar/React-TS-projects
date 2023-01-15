@@ -2,25 +2,25 @@ import { useState } from "react";
 import "./App.css";
 import parse from "html-react-parser";
 import menuItem from "./assets/img/menu-item.jpeg";
-// import menuItem1 from "./assets/img/item-1.jpeg";
-// import menuItem2 from "./assets/img/item-2.jpeg";
-// import menuItem3 from "./assets/img/item-3.jpeg";
-// import menuItem4 from "./assets/img/item-4.jpeg";
-// import menuItem5 from "./assets/img/item-5.jpeg";
-// import menuItem6 from "./assets/img/item-6.jpeg";
-// import menuItem7 from "./assets/img/item-7.jpeg";
-// import menuItem8 from "./assets/img/item-8.jpeg";
-// import menuItem9 from "./assets/img/item-9.jpeg";
-// import menuItem10 from "./assets/img/item-10.jpeg";
+import menuItem1 from "./assets/img/item-1.jpeg";
+import menuItem2 from "./assets/img/item-2.jpeg";
+import menuItem3 from "./assets/img/item-3.jpeg";
+import menuItem4 from "./assets/img/item-4.jpeg";
+import menuItem5 from "./assets/img/item-5.jpeg";
+import menuItem6 from "./assets/img/item-6.jpeg";
+import menuItem7 from "./assets/img/item-7.jpeg";
+import menuItem8 from "./assets/img/item-8.jpeg";
+import menuItem9 from "./assets/img/item-9.jpeg";
+import menuItem10 from "./assets/img/item-10.jpeg";
 
 function App() {
-  const menu = [
+  const menuItems = [
     {
       id: 1,
       title: "buttermilk pancakes",
       category: "breakfast",
       price: 15.99,
-      img: "./assets/img/item-1.jpeg",
+      img: `${menuItem1}`,
       desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
     },
     {
@@ -28,7 +28,7 @@ function App() {
       title: "diner double",
       category: "lunch",
       price: 13.99,
-      img: "./assets/img/item-2.jpeg",
+      img: `${menuItem2}`,
       desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
     },
     {
@@ -36,7 +36,7 @@ function App() {
       title: "godzilla milkshake",
       category: "shakes",
       price: 6.99,
-      img: "./assets/img/item-3.jpeg",
+      img: `${menuItem3}`,
       desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
     },
     {
@@ -44,7 +44,7 @@ function App() {
       title: "country delight",
       category: "breakfast",
       price: 20.99,
-      img: "./assets/img/item-4.jpeg",
+      img: `${menuItem4}`,
       desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
     },
     {
@@ -52,7 +52,7 @@ function App() {
       title: "egg attack",
       category: "lunch",
       price: 22.99,
-      img: "./assets/img/item-5.jpeg",
+      img: `${menuItem5}`,
       desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
     },
     {
@@ -60,7 +60,7 @@ function App() {
       title: "oreo dream",
       category: "shakes",
       price: 18.99,
-      img: "./assets/img/item-6.jpeg",
+      img: `${menuItem6}`,
       desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
     },
     {
@@ -68,7 +68,7 @@ function App() {
       title: "bacon overflow",
       category: "breakfast",
       price: 8.99,
-      img: "./assets/img/item-7.jpeg",
+      img: `${menuItem7}`,
       desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `,
     },
     {
@@ -76,7 +76,7 @@ function App() {
       title: "american classic",
       category: "lunch",
       price: 12.99,
-      img: "./assets/img/item-8.jpeg",
+      img: `${menuItem8}`,
       desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `,
     },
     {
@@ -84,7 +84,7 @@ function App() {
       title: "quarantine buddy",
       category: "shakes",
       price: 16.99,
-      img: "./assets/img/item-9.jpeg",
+      img: `${menuItem9}`,
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
     {
@@ -92,7 +92,7 @@ function App() {
       title: "bison steak",
       category: "dinner",
       price: 22.99,
-      img: "./assets/img/item-10.jpeg",
+      img: `${menuItem10}`,
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
   ];
@@ -142,6 +142,31 @@ function App() {
           </article>`);
   const [sectionCenter, setSectionCenter] = useState(initialSection);
 
+  const loadCards = () => {
+    let displayMenu = menuItems.map(function (item) {
+      // console.log(item);
+
+      return `<article class="menu-item">
+          <img src=${item.img} alt=${item.title} class="photo" />
+          <div class="item-info">
+            <header>
+              <h4>${item.title}</h4>
+              <h4 class="price">$${item.price}</h4>
+            </header>
+            <p class="item-text">
+              ${item.desc}
+            </p>
+          </div>
+        </article>`;
+    });
+    // console.log(displayMenu);
+
+    let display = parse(displayMenu.join(""));
+    // console.log(display);
+
+    setSectionCenter(display);
+  };
+
   return (
     <div className="App">
       <section className="menu">
@@ -162,7 +187,9 @@ function App() {
         </button>  */}
         </div>
         {/* menu items  */}
-        <div className="section-center">{sectionCenter}</div>
+        <div className="section-center" onLoad={loadCards}>
+          {sectionCenter}
+        </div>
       </section>
     </div>
   );
