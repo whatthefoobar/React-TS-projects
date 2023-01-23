@@ -123,11 +123,8 @@ function App() {
 
   const filterCards = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget.dataset.id;
-    // console.log(e.currentTarget.dataset.id);
-    //
 
     let filtered = menuItems.filter((menuItem) => {
-      // console.log(menuItem.category);
       if (category === "all") return menuItems;
       if (menuItem.category === category) {
         return menuItem;
