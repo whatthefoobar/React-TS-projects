@@ -11,9 +11,20 @@ import menuItem7 from "./assets/img/item-7.jpeg";
 import menuItem8 from "./assets/img/item-8.jpeg";
 import menuItem9 from "./assets/img/item-9.jpeg";
 import menuItem10 from "./assets/img/item-10.jpeg";
+import { useEffect, useState } from "react";
+import MenuItem from "./components/MenuItem";
+
+interface IMenuItem {
+  id: number;
+  title: string;
+  category: string;
+  price: number;
+  img: string;
+  desc: string;
+}
 
 function App() {
-  const menuItems = [
+  const menuItems: IMenuItem[] = [
     {
       id: 1,
       title: "buttermilk pancakes",
@@ -95,6 +106,8 @@ function App() {
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
   ];
+  const [filteredMenuItems, setFilteredMenuItems] =
+    useState<IMenuItem[]>(menuItems);
 
   //non repeating categories
   const categories = menuItems.reduce(
@@ -107,11 +120,25 @@ function App() {
     },
     ["all"]
   );
-  const filterCards = () => {
-    // something here
 
-    console.log("filter");
+  const filterCards = (e: React.MouseEvent<HTMLElement>) => {
+    const category = e.currentTarget.dataset.id;
+    // console.log(e.currentTarget.dataset.id);
+    //
+
+    let filtered = menuItems.filter((menuItem) => {
+      // console.log(menuItem.category);
+      if (menuItem.category === "all") return;
+      if (menuItem.category === category) {
+        return menuItem;
+      }
+    });
+    setFilteredMenuItems(filtered);
   };
+
+  // useEffect(() => {
+  //   console.log(menuItems);
+  // }, [filteredMenuItems]);
 
   return (
     <div className="App">
@@ -135,30 +162,12 @@ function App() {
               {category}
             </button>
           ))}
-          {/*  <button type="button" className="filter-btn" data-id="all">all</button>
-        <button type="button" className="filter-btn" data-id="breakfast">
-          breakfast
-        </button>
-        <button type="button" className="filter-btn" data-id="lunch">lunch</button>
-        <button type="button" className="filter-btn" data-id="shakes">
-          shakes
-        </button>  */}
         </div>
         {/* menu items  */}
         <div className="section-center">
-          {menuItems.map((item, index) => (
-            <article className="menu-item">
-              <img src={item.img} alt={item.title} className="photo" />
-              <div className="item-info">
-                <header>
-                  <h4>{item.title}</h4>
-                  <h4 className="price">${item.price}</h4>
-                </header>
-                <p className="item-text">{item.desc}</p>
-              </div>
-            </article>
+          {filteredMenuItems.map((item, index) => (
+            <MenuItem item={item} key={index} />
           ))}
-          {/* {sectionCenter} */}
         </div>
       </section>
     </div>
