@@ -128,17 +128,13 @@ function App() {
 
     let filtered = menuItems.filter((menuItem) => {
       // console.log(menuItem.category);
-      if (menuItem.category === "all") return;
+      if (category === "all") return menuItems;
       if (menuItem.category === category) {
         return menuItem;
       }
     });
     setFilteredMenuItems(filtered);
   };
-
-  // useEffect(() => {
-  //   console.log(menuItems);
-  // }, [filteredMenuItems]);
 
   return (
     <div className="App">
